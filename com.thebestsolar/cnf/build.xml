@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project basedir='.' default='info'>
+    <property file = "build.properties"/>
+    <property name = "application.name" value = "App"/>
+    <property name = "web.content.dir" value = "WebContent"/>
+    <property name = "build.dir" value = "build"/>
+    <property name = "build.classes.dir" value = "${build.dir}/classes"/>
+    <property name = "build.bundles.dir" value = "${build.dir}/bundles"/>
+    <property name = "build.jar.dir" value = "${build.dir}/jar"/>
+    <property name = "source.dir" value = "src/main/java"/>
+
+    <taskdef resource="aQute/bnd/ant/taskdef.properties"
+            classpath="/Users/i836432/bin/biz.aQute.bnd-3.5.0.jar"/>
+
+    <path id="lib.path">
+        <fileset dir="target/dependency">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+
+    <target name="info">
+        <echoproperties />
+    </target>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="compile" depends="clean">
+        <mkdir dir="${build.classes.dir}"/>
+        <javac srcdir="${source.dir}" destdir="${build.classes.dir}">
+            <classpath refid="lib.path"/>
+        </javac>
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="${build.jar.dir}"/>
+        <jar destfile="${build.jar.dir}/${application.name}.jar" basedir="${build.classes.dir}">
+        </jar>
+    </target>
+
+    <target name="web-jar" depends="compile">
+        <mkdir dir="${build.jar.dir}"/>
+        <mkdir dir="${build.classes.dir}/WEB-INF"/>
+        <copy file="${web.content.dir}/WEB-INF/web.xml" todir="${build.classes.dir}/WEB-INF"/>
+        <mkdir dir="${build.classes.dir}/WEB-INF/views"/>
+        <copy todir="${build.classes.dir}/WEB-INF/views">
+            <fileset dir="${web.content.dir}/WEB-INF/views"/>
+        </copy>
+        <jar destfile="${build.jar.dir}/${application.name}.jar" basedir="${build.classes.dir}">
+        </jar>
+    </target>
+
+    <target name="bnd" depends="jar">
+        <mkdir dir="${build.bundles.dir}"/>
+        <bndwrap definitions="${application.name}.bnd" output="${build.bundles.dir}">
+            <fileset dir="${build.jar.dir}" includes="${application.name}.jar"/>
+        </bndwrap>
+    </target>
+
+    <target name="bnd-web" depends="web-jar">
+        <mkdir dir="${build.bundles.dir}"/>
+        <bndwrap definitions="${application.name}.bnd" output="${build.bundles.dir}">
+            <fileset dir="${build.jar.dir}" includes="${application.name}.jar"/>
+        </bndwrap>
+    </target>
+
+</project>
