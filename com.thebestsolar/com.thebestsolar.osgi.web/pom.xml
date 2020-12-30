@@ -6,7 +6,7 @@
 
     <parent>
         <groupId>com.thebestsolar</groupId>
-        <artifactId>maven</artifactId>
+        <artifactId>java-code</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
@@ -18,6 +18,22 @@
     <name>OSGI Web Application</name>
 
     <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+        </dependency>
         <!-- spring mvn HelloController -->
         <dependency>
             <groupId>org.springframework</groupId>

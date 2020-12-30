@@ -8,6 +8,7 @@
     <property name = "build.bundles.dir" value = "${build.dir}/bundles"/>
     <property name = "build.jar.dir" value = "${build.dir}/jar"/>
     <property name = "source.dir" value = "src/main/java"/>
+    <property name = "resources.dir" value = "src/main/resources"/>
 
     <taskdef resource="aQute/bnd/ant/taskdef.properties"
             classpath="/Users/i836432/bin/biz.aQute.bnd-3.5.0.jar"/>
@@ -47,6 +48,11 @@
         <copy todir="${build.classes.dir}/WEB-INF/views">
             <fileset dir="${web.content.dir}/WEB-INF/views"/>
         </copy>
+        <copy todir="${resources.dir}/">
+            <fileset dir="${resources.dir}">
+                <include name="*.xml" />
+            </fileset>
+        </copy>
         <jar destfile="${build.jar.dir}/${application.name}.jar" basedir="${build.classes.dir}">
         </jar>
     </target>
@@ -63,6 +69,23 @@
         <bndwrap definitions="${application.name}.bnd" output="${build.bundles.dir}">
             <fileset dir="${build.jar.dir}" includes="${application.name}.jar"/>
         </bndwrap>
+    </target>
+
+    <target name="gemini-jar" depends="clean">
+        <mkdir dir="${build.dir}/OSGI-INF"/>
+        <copy todir="${build.dir}/OSGI-INF">
+            <fileset dir="src/main/OSGI-INF"/>
+        </copy>
+        <mkdir dir="${build.dir}/META-INF"/>
+        <copy todir="${build.dir}/META-INF">
+            <fileset dir="src/main/META-INF"/>
+        </copy>
+        <copy todir="${build.dir}">
+            <fileset dir="target/classes"/>
+        </copy>
+        <!--exec dir="${build.dir}" executable="jar">
+            <arg line=" cfvm bundle.jar ${build.dir}/META-INF/MANIFEST.MF ."/>
+        </exec-->
     </target>
 
 </project>

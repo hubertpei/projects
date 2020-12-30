@@ -19,19 +19,26 @@
         <org.apache.logging.log4j.version>2.14.0</org.apache.logging.log4j.version>
         <org.springframework.version>5.2.12.RELEASE</org.springframework.version>
         <org.eclipse.osgi.version>3.7.1</org.eclipse.osgi.version>
-        <org.eclipse.gemini.blueprint.version>3.0.0.M1</org.eclipse.gemini.blueprint.version>
+        <org.eclipse.gemini.blueprint.version>3.0.0.M01</org.eclipse.gemini.blueprint.version>
+        <javax.servlet_servlet-api.version>2.5</javax.servlet_servlet-api.version>
+        <javax.servlet_jstl.version>1.2</javax.servlet_jstl.version>
     </properties>
 
     <repositories>
     </repositories>
 
     <dependencyManagement>
-        <!-- logging -->
         <dependencies>
+            <!-- logging -->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>${org.slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-slf4j-impl</artifactId>
+                <version>${org.apache.logging.log4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
@@ -43,7 +50,7 @@
                 <artifactId>log4j-core</artifactId>
                 <version>${org.apache.logging.log4j.version}</version>
             </dependency>
-        <!-- spring -->
+            <!-- spring -->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-core</artifactId>
@@ -97,15 +104,17 @@
                 <version>${org.eclipse.osgi.version}</version>
             </dependency>
             <!-- servlet -->
-            <!--dependency>
+            <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>jstl</artifactId>
-            </dependency-->
+                <version>${javax.servlet_jstl.version}</version>
+            </dependency>
             <!-- HelloWorld sevrlet -->
-            <!--dependency>
+            <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>servlet-api</artifactId>
-            </dependency-->
+                <version>${javax.servlet_servlet-api.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
