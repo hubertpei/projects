@@ -1,0 +1,3 @@
+Bundle-Name: Hello
+Bundle-Version: 1.0.0.qualifier
+Export-Package: *

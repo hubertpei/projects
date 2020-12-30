@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project name='osgi hello world' basedir='.' default='build'>
+    <import file='../cnf/build.xml' />
+    <property name = "application.name" value = "consumer"/>
+    <property file = "build.properties"/>
+    <property name = "build.dir" value = "build"/>
+</project>

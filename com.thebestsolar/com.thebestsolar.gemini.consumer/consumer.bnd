@@ -1,0 +1,4 @@
+Bundle-Name: Hello
+#Bundle-SymbolicName: com.thebestsolar.gemini.consumer
+Bundle-Version: 1.0.0.qualifier
+Export-Package: *

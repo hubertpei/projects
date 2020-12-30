@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project basedir='.' default='info'>
     <property file = "build.properties"/>
-    <property name = "application.name" value = "App"/>
+    <!--property name = "application.name" value = "App"/-->
     <property name = "web.content.dir" value = "WebContent"/>
     <property name = "build.dir" value = "build"/>
     <property name = "build.classes.dir" value = "${build.dir}/classes"/>
@@ -34,12 +34,6 @@
         </javac>
     </target>
 
-    <target name="jar" depends="compile">
-        <mkdir dir="${build.jar.dir}"/>
-        <jar destfile="${build.jar.dir}/${application.name}.jar" basedir="${build.classes.dir}">
-        </jar>
-    </target>
-
     <target name="web-jar" depends="compile">
         <mkdir dir="${build.jar.dir}"/>
         <mkdir dir="${build.classes.dir}/WEB-INF"/>
@@ -57,13 +51,6 @@
         </jar>
     </target>
 
-    <target name="bnd" depends="jar">
-        <mkdir dir="${build.bundles.dir}"/>
-        <bndwrap definitions="${application.name}.bnd" output="${build.bundles.dir}">
-            <fileset dir="${build.jar.dir}" includes="${application.name}.jar"/>
-        </bndwrap>
-    </target>
-
     <target name="bnd-web" depends="web-jar">
         <mkdir dir="${build.bundles.dir}"/>
         <bndwrap definitions="${application.name}.bnd" output="${build.bundles.dir}">
@@ -71,7 +58,7 @@
         </bndwrap>
     </target>
 
-    <target name="gemini-jar" depends="clean">
+    <target name="jar" depends="clean">
         <mkdir dir="${build.dir}/OSGI-INF"/>
         <copy todir="${build.dir}/OSGI-INF">
             <fileset dir="src/main/OSGI-INF"/>
@@ -83,9 +70,14 @@
         <copy todir="${build.dir}">
             <fileset dir="target/classes"/>
         </copy>
-        <!--exec dir="${build.dir}" executable="jar">
-            <arg line=" cfvm bundle.jar ${build.dir}/META-INF/MANIFEST.MF ."/>
-        </exec-->
+        <jar destfile="${build.dir}/${application.name}.jar" basedir="${build.dir}">
+        </jar>
+    </target>
+
+    <target name="bnd" depends="jar">
+        <bndwrap definitions="${application.name}.bnd" output="${application.name}_osgi.jar">
+            <fileset dir="${build.dir}" includes="${application.name}.jar"/>
+        </bndwrap>
     </target>
 
 </project>
