@@ -1,0 +1,8 @@
+-removeheaders: Require-Capability
+Bundle-Name: Hello
+Bundle-SymbolicName: com.thebestsolar.helloworld
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.thebestsolar.helloworld.OSGIHelloWorld
+Export-Package: *
+Import-Package: *;resolution:=optional
+Bundle-Classpath: .,lib/log4j-api-2.14.0.jar,lib/log4j-core-2.14.0.jar,lib/jaxp-api-1.4.5.jar

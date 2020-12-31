@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.thebestsolar</groupId>
+        <artifactId>java-code</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <!--relativePath></relativePath-->
+    </parent>
+
+    <groupId>com.thebestsolar</groupId>
+    <artifactId>helloworld</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>bundle</packaging>
+    <name>Hello World</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse.osgi</groupId>
+            <artifactId>org.eclipse.osgi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+        </dependency>
+<dependency>
+    <groupId>javax.xml.parsers</groupId>
+    <artifactId>jaxp-api</artifactId>
+    <version>1.4.5</version>
+</dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>3.3.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>
+                            ${pom.groupId}.${pom.artifactId}
+                        </Bundle-SymbolicName>
+                        <Bundle-Name>${pom.name}</Bundle-Name>
+                        <Bundle-Version>${pom.version}</Bundle-Version>
+                        <Bundle-Activator>
+                            com.thebestsolar.helloworld.OSGIHelloWorld
+                        </Bundle-Activator>
+                        <Private-Package>
+                            com.thebestsolar.helloworld
+                        </Private-Package>            
+                        <Embed-Directory>
+                            osgi-inf/libs
+                        </Embed-Directory>
+                        <!--Embed-Dependency>target/dependency/*;scope=compile|runtime</Embed-Dependency-->
+                        <!--Bundle-ClassPath>
+                            .,target/dependency/slf4j-api-1.7.25.jar
+                        </Bundle-ClassPath-->
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

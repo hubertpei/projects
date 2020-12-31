@@ -9,6 +9,7 @@
     <property name = "build.jar.dir" value = "${build.dir}/jar"/>
     <property name = "source.dir" value = "src/main/java"/>
     <property name = "resources.dir" value = "src/main/resources"/>
+    <property name = "maven.dependency.dir" value = "target/dependency"/>
 
     <taskdef resource="aQute/bnd/ant/taskdef.properties"
             classpath="/Users/i836432/bin/biz.aQute.bnd-3.5.0.jar"/>
@@ -58,6 +59,32 @@
         </bndwrap>
     </target>
 
+    <target name="fat-jar" depends="clean">
+        <mkdir dir="${build.dir}/OSGI-INF"/>
+        <copy todir="${build.dir}/OSGI-INF">
+            <fileset dir="src/main/OSGI-INF"/>
+        </copy>
+        <mkdir dir="${build.dir}/META-INF"/>
+        <copy todir="${build.dir}/META-INF">
+            <fileset dir="src/main/META-INF"/>
+        </copy>
+        <copy todir="${build.dir}">
+            <fileset dir="target/classes"/>
+        </copy>
+        <unzip dest="${build.dir}">
+            <patternset>
+                <include name="**/*.class"/>
+                <exclude name="META-INF/**/*"/>
+            </patternset>
+            <fileset dir="${maven.dependency.dir}">
+                <include name="*.jar"/>
+                <exclude name="org.eclipse*"/>
+            </fileset>
+        </unzip>
+        <jar destfile="${build.dir}/${application.name}.jar" basedir="${build.dir}">
+        </jar>
+    </target>
+
     <target name="jar" depends="clean">
         <mkdir dir="${build.dir}/OSGI-INF"/>
         <copy todir="${build.dir}/OSGI-INF">
@@ -69,6 +96,13 @@
         </copy>
         <copy todir="${build.dir}">
             <fileset dir="target/classes"/>
+        </copy>
+        <mkdir dir="${build.dir}/lib"/>
+        <copy todir="${build.dir}/lib">
+            <fileset dir="${maven.dependency.dir}">
+                <include name="*.jar"/>
+                <exclude name="org.eclipse*"/>
+            </fileset>
         </copy>
         <jar destfile="${build.dir}/${application.name}.jar" basedir="${build.dir}">
         </jar>
